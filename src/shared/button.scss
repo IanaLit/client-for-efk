@@ -1,0 +1,25 @@
+.green, .red {
+    padding: 6px 20px;
+    border-radius: 20px;
+    background: none;
+    border: 1px solid #7ffaea;
+    color: #7ffaea;
+    font-weight: bold;
+    transition: all .5s;
+    margin-top: 1em;
+    cursor: pointer;
+  }
+  .green:hover {
+    //background: #38bd7f;
+    background: #fff;
+    color: #38bd7f;
+    border: 1px solid #29990c;
+    box-shadow: 0 0 20px #38bd7f;
+  }
+  .red:hover {
+    //background: #da7e7e;
+    border: 1px solid #c73e1b;
+    background: #fff;
+    color: #da7e7e;
+    box-shadow: 0 0 20px #da7e7e;
+  }

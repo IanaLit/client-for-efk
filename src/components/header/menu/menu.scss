@@ -1,0 +1,137 @@
+@import '../../../_constants.scss';
+
+$toggleSize: 40px;
+$toggleMargin: 5px;
+$toggleLine: 5px;
+$toggleColor: rgb(226, 214, 214);
+
+.nav-container {
+  position: relative;
+  display: inline-block;
+  max-width: $toggleSize + $toggleMargin;
+  max-height: $toggleSize + $toggleMargin;
+  overflow: visible;
+  outline: none;
+  padding-left: 1wv;
+
+  //&:focus-within, &:focus {
+  &.is-active {
+    margin-top: -3vw;
+    .nav-toggle {
+      //margin-top: 2vw;
+      top: 2vw;
+      right: 5px;
+      &:before, &:after {
+        box-shadow: none;
+      }
+
+      &:before {
+        transform: rotate(-45deg);
+      }
+
+      &:after {
+        transform: rotate(45deg);
+      }
+    }
+
+    .nav-items {
+      transform: translate(0, 0);
+    }
+  }
+
+  .nav-toggle {
+    $offset: $toggleSize * 0.5;
+
+    position: relative;
+    width: $toggleSize;
+    height: $toggleSize;
+    margin: $toggleMargin;
+    z-index: 2;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:before, &:after {
+      content: "";
+      position: absolute;
+      top: #{$offset - $toggleLine / 2};
+      left: 0;
+      transform: translate(0, 0);
+      width: 100%;
+      height: $toggleLine;
+      background: $toggleColor;
+      transition: transform .3s ease, box-shadow .3s ease;
+      border-radius: 5px;
+    }
+
+    &:before {
+      box-shadow: 0 #{$offset / 1.5} 0 0 $toggleColor;
+    }
+
+    &:after {
+      box-shadow: 0 #{-$offset / 1.5} 0 0 $toggleColor;
+    }
+  }
+
+  .nav-items {
+    position: absolute;
+    top: 0;
+    left: -10vw;
+    //max-width: 320px;
+    width: 320px;
+    //max-width: 20vw;
+    //width: 20vw;
+    //height: 100%;
+    z-index: 1;
+    padding: 80px 20px 20px 10px;
+    transition: transform 1s ease;
+    transform: translate(calc(-100% - 30vw), 0);
+    background: $colorTrain;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 5px 0;
+    align-content: start;
+    box-shadow: 0 0 50px rgb(0 0 0 / 30%);
+
+    .nav-item {
+      padding: 10px;
+      transition: background-color .3s ease;
+
+      &:hover {
+        cursor: pointer;
+        box-shadow: 0 0 50px rgba(107, 250, 212, 0.952);
+        border-radius: 5px;
+      }
+      &:active {
+        box-shadow: 0 0 10px rgba(107, 250, 212, 0.952);
+        border-radius: 5px;
+      }
+    }
+  }
+}
+.play .nav-items {
+  background: $colorPlay;
+}
+.active{
+  box-shadow: 0 0 10px rgba(143, 231, 154, 0.952);
+  border-radius: 5px;
+}
+.login-trigger{
+  border: solid 1px grey;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(to bottom right, #55b082, #7b92f8);
+  padding: 15px 30px;
+  border-radius: 30px;
+  position: relative;
+  top: 50%;
+  margin-bottom: 2vw;
+  transition: all .3s;
+  &:hover{
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(143, 231, 154, 0.952);
+    transform: scale(0.9);
+
+  }
+}

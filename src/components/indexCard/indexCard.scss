@@ -1,0 +1,53 @@
+@import '../../constants';
+* {
+  box-sizing: border-box;
+}
+
+.index-card {
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  overflow: hidden;
+  max-width: 100%;
+  width: 350px; /* default 400px */
+  margin-bottom: 4vh;
+  &:hover{
+    box-shadow: 0 20px 20px rgb(0 0 0 / 25%), 0 6px 6px rgb(0 0 0 / 35%);
+    transform: translateY(-7px);
+    cursor: pointer;
+    transition: all .5s;
+  }
+}
+
+.index-card-body {
+  padding: 40px 40px 80px;
+}
+.index-card-footer {
+  background: $colorTrain;
+  color: #fff;
+  padding: 30px; /* default 40px*/
+  text-align: center;
+}
+.play .index-card-footer{
+  background: $colorPlay;
+}
+
+.index-card-footer img {
+  border-radius: 50%;
+  border: 5px solid #fff;
+  height: 100px; /* default 120px */
+  width: 100px; /* default 120px */
+  margin-top: -80px; /* default -100px */
+}
+
+.index-card-footer h3 {
+  margin: 10px 0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.index-card-text{
+  color: white;
+  margin: 0;
+  letter-spacing: 1px;
+}

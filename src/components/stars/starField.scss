@@ -1,0 +1,30 @@
+.star-field{
+  justify-content: flex-end;
+    padding-bottom: 2vh;
+    background-color: #eee5d5;
+    width: 20vw;
+    height: 6vh;
+    border: 1px #f8d799 solid;
+    border-radius: 5px;
+    margin-left: calc(100% - 29vw);
+    margin-bottom: 3vh;
+  display: none;
+}
+.star {
+  width: 5vh;
+  height: 5vh;
+  margin-left: 0vw;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.right {
+  background-image: url(/public/img/success-star.svg);
+}
+.fault {
+  background-image: url(/public/img/star.svg);
+}
+.error {
+  color: red;
+  font-size: 30px;
+  text-align: center;
+}

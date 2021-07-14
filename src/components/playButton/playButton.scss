@@ -1,0 +1,34 @@
+@import '../../constants';
+.play-button{
+  margin: 1vh 45vw;
+  min-width: 8vw;
+  border-radius: 20px;
+  height: 6vh;
+  background: $colorPlay;
+  border: none;
+  &:hover{
+    cursor: pointer;
+    transform: scale(1.3);
+    box-shadow: 0 0 20px #fc6262;
+    transition: all 1s;
+  }
+}
+.repeat{
+  border-color: #fcf962;
+  color: rgb(62, 62, 107);
+  border:1px solid rgb(62, 62, 107);
+  background: {
+    image: linear-gradient(45deg,#fcf962 50%, transparent 50%);
+    position: 100%;
+    size: 400%;
+  }
+  transition: background 300ms ease-in-out;
+
+  &:hover {
+    background-position: 0;
+  }
+
+}
+.hidden{
+  display: none;
+}

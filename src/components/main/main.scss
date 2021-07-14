@@ -1,0 +1,26 @@
+.main{
+   padding-left: 9vw;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-right: 9vw;
+    opacity: 1;
+}
+.win{
+  background-image: url(/public/img/success.jpg);
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: all 1s;
+}
+.looser{
+  background-image: url(/public/img/failure.jpg);
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: all 1s;
+}
+.show-login{
+  opacity: 0.5;
+}
