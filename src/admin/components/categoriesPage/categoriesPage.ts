@@ -1,6 +1,8 @@
 import { CategoryService } from '../../services/categoryService';
 import { CategoryCard } from './categoryCard';
 import './category.scss';
+import { adminHeader } from '../adminHeader/header';
+
 
 export class CategoriesPage {
   element: HTMLElement;
@@ -19,8 +21,10 @@ export class CategoriesPage {
 
   render = async () => {
     document.body.innerText = '';
+    const header = new adminHeader(this.element);
+    document.body.appendChild(header.element);
+    header.setActive();
     const categories = await CategoryService.getCategories();
-    console.log(categories);
     document.body.appendChild(this.element);
     categories.forEach((category:{ name:string, _id:string, words:[] }) => {
       const categoryCard = new CategoryCard(category.name, category._id, category.words);

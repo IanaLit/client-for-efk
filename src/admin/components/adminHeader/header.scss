@@ -1,0 +1,25 @@
+body{
+    margin:0;
+}
+.admin-header{
+    display: flex;
+    justify-content: space-between;
+    padding: 0vw 9vw;
+    align-items: center;
+    background: linear-gradient(to bottom right, #7d7bf8, #55b0a4);
+}
+.nav-header li{
+    display: inline;
+    list-style-type: none;
+    font-size: large;
+    &:first-child{
+        margin-right: 50px;
+    }
+}
+
+    .nav-header li.active-page{
+        color: white;
+        font-weight: 900;
+        text-decoration:underline;
+    }
+

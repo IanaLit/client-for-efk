@@ -47,8 +47,6 @@ export class CategoryCard {
       const { id } = this;
       this.element.innerText = '';
       this.newCategory();
-      //await CategoryService.deleteCategory(id);
-      
     }
     if (this.inputName) {
       this.inputName.onInput = () => {
