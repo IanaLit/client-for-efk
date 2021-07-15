@@ -1,7 +1,9 @@
 export class CategoryService {
+  static scip = 0;
+  static limit = 3;
   static uri = 'http://localhost:3000';
   static getCategories = async () => {
-    const response = await fetch(`${CategoryService.uri}/admin/categories`,
+    const response = await fetch(`${CategoryService.uri}/admin/categories?scip=${CategoryService.scip}&limit=${CategoryService.limit}`,
       {
         headers: { 'Access-Control-Allow-Origin': `${CategoryService.uri}` },
       });

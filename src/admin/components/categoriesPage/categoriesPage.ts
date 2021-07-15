@@ -17,13 +17,19 @@ export class CategoriesPage {
     this.addCard.onclick = () => {
       this.newCategoryCard();
     };
+    let self = this;
+    this.element.onscroll = ()=> {
+      if(self){
+        const { scrollTop, clientHeight, scrollHeight } = self.element;
+      if(scrollTop + clientHeight >= scrollHeight) {
+        self.loadMore();
+  }
+      }      
+    }
   }
 
-  render = async () => {
-    document.body.innerText = '';
-    const header = new adminHeader(this.element);
-    document.body.appendChild(header.element);
-    header.setActive();
+  loadMore = async()=>{
+    console.log('load');
     const categories = await CategoryService.getCategories();
     document.body.appendChild(this.element);
     categories.forEach((category:{ name:string, _id:string, words:[] }) => {
@@ -31,6 +37,14 @@ export class CategoriesPage {
       this.element.appendChild(categoryCard.element);
       categoryCard.showCategory();
     });
+    CategoryService.scip = CategoryService.scip + CategoryService.limit;
+  }
+  render = async () => {
+    document.body.innerText = '';
+    const header = new adminHeader(this.element);
+    document.body.appendChild(header.element);
+    header.setActive();
+    this.loadMore();
     this.createCategoryCard();
   };
 
