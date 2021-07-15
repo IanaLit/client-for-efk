@@ -1,7 +1,9 @@
 import { CategoriesPage } from '../../admin/components/categoriesPage/categoriesPage';
+import { AuthService } from '../../admin/services/authService';
 import { CategoryService } from '../../admin/services/categoryService';
 import { Button } from '../../shared/button';
 import { Input } from '../../shared/input';
+import '../../shared/button.scss';
 import './loginForm.scss';
 
 export class LoginForm {
@@ -42,11 +44,21 @@ export class LoginForm {
     this.cancelButton.btnClick = () => {
       this.show();
     };
-    this.loginButton.btnClick = () => {
-      if (this.login.element.value === 'admin' && this.password.element.value === 'admin') {
+    this.loginButton.btnClick = async() => {
+      
+      //if(this.login.element.value && this.password.element.value){}
+        
+      
+      if(!this.password.element.value){
+        alert('Enter "admin" for password' );
+      }
+      if(!this.login.element.value){
+        alert('Enter "admin" for login' );
+      }
+      const result = await AuthService.login({login: this.login.element.value, password: this.password.element.value});
+      if(result === 'ok') {
+        sessionStorage.setItem('login', 'true');
         this.adminPage.render();
-      } else {
-        this.password.element.value = '';
       }
     };
   }
