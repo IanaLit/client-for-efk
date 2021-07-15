@@ -3,6 +3,8 @@ import { Input } from '../../../shared/input';
 import './category.scss';
 import '../../../shared/button.scss';
 import { CategoryService } from '../../services/categoryService';
+import { WordService } from '../../services/wordsService';
+import { WordCard } from '../wordsPage/wordCard';
 
 let newCategoryName = '';
 export class CategoryCard {
@@ -10,9 +12,14 @@ export class CategoryCard {
 
   name:string |undefined;
 
-  id:string;
+ id:string;
 
-  words:[];
+  words: string[];
+  // word:string,
+  // translation:string,
+  // audioSrc:string,
+  // image:string,
+  // owner:string}
 
   buttonDelete:Button;
 
@@ -33,11 +40,21 @@ export class CategoryCard {
     this.id = id;
     this.words = words;
 
+
     this.buttonUpdate = new Button('green', 'update');
     this.buttonCreate = new Button('green', 'create');
     this.buttonAddWord = new Button('green', 'add word');
     this.buttonDelete = new Button('close', '');
     this.buttonCancel = new Button('red', 'cancel');
+
+
+    this.buttonAddWord.btnClick = async() =>{
+      console.log(this);
+      WordService.category = this;
+      if(this.name) WordService.categoryName = this.name;
+      if(this.id) WordService.categoryId = this.id;
+      WordService.renderWords();
+    }
     this.buttonDelete.btnClick = async () => {
       const { id } = this;
       this.element.remove();
@@ -58,7 +75,9 @@ export class CategoryCard {
       console.log(newCategoryName);
       if (newCategoryName) {
         const updatedId = this.id? this.id :'';
-        const newCategory = await CategoryService.createCategory( {id: updatedId,name: newCategoryName });
+        const newCategory = await CategoryService.createCategory( {id: updatedId,name: newCategoryName, words:this.words });
+        console.log(newCategory);
+        WordService.category = newCategory;
         this.element.innerText = '';
         this.name = newCategory.name;
         this.id = newCategory._id;
@@ -78,7 +97,7 @@ export class CategoryCard {
   }
 
   showCategory() {
-    //console.log(this.id);
+    //console.log(this);
     const header = document.createElement('h4');
     if (this.name) header.innerText = this.name;
     const words = document.createElement('div');

@@ -8,7 +8,7 @@ export class CategoryService {
     return response.json();
   };
 
-  static createCategory = async ( body: {id:string, name: string; }) => {
+  static createCategory = async ( body: {id:string, name: string; words:string[]}) => {
     const response = await fetch(`${CategoryService.uri}/admin/categories/`,
       {
         method: 'POST',
