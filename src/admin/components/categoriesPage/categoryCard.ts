@@ -1,3 +1,5 @@
+/* eslint import/no-cycle: [1, { maxDepth: 2 }] */
+/* eslint-disable */
 import { Button } from '../../../shared/button';
 import { Input } from '../../../shared/input';
 import './category.scss';
@@ -12,7 +14,7 @@ export class CategoryCard {
 
   name:string |undefined;
 
- id:string;
+  id:string;
 
   words: string[];
   // word:string,
@@ -40,31 +42,30 @@ export class CategoryCard {
     this.id = id;
     this.words = words;
 
-
     this.buttonUpdate = new Button('green', 'update');
     this.buttonCreate = new Button('green', 'create');
     this.buttonAddWord = new Button('green', 'add word');
     this.buttonDelete = new Button('close', '');
     this.buttonCancel = new Button('red', 'cancel');
 
-
-    this.buttonAddWord.btnClick = async() =>{
+    this.buttonAddWord.btnClick = async () => {
       console.log(this);
       WordService.category = this;
-      if(this.name) WordService.categoryName = this.name;
-      if(this.id) WordService.categoryId = this.id;
+      if (this.name) WordService.categoryName = this.name;
+      if (this.id) WordService.categoryId = this.id;
       WordService.renderWords();
-    }
+    };
     this.buttonDelete.btnClick = async () => {
+      /* eslint-disable-next-line no-param-reassign, no-underscore-dangle */
       const { id } = this;
       this.element.remove();
       await CategoryService.deleteCategory(id);
     };
-    this.buttonUpdate.btnClick = async() =>{
-      const { id } = this;
+    this.buttonUpdate.btnClick = async () => {
+      // const { id } = this;
       this.element.innerText = '';
       this.newCategory();
-    }
+    };
     if (this.inputName) {
       this.inputName.onInput = () => {
         console.log(this.inputName?.element.value);
@@ -74,18 +75,19 @@ export class CategoryCard {
       newCategoryName = (this.inputName?.element.value as string);
       console.log(newCategoryName);
       if (newCategoryName) {
-        const updatedId = this.id? this.id :'';
-        const newCategory = await CategoryService.createCategory( {id: updatedId,name: newCategoryName, words:this.words });
+        const updatedId = this.id ? this.id : '';
+        const newCategory = await CategoryService.createCategory({ id: updatedId, name: newCategoryName, words: this.words });
         console.log(newCategory);
         WordService.category = newCategory;
         this.element.innerText = '';
         this.name = newCategory.name;
+        /* eslint-disable-next-line no-param-reassign, no-underscore-dangle */
         this.id = newCategory._id;
         this.words = newCategory.words;
         this.showCategory();
       }
     };
-    this.buttonDelete;
+    // this.buttonDelete;
   }
 
   createButtonGroup(button1:Button, button2:Button) {
@@ -97,7 +99,7 @@ export class CategoryCard {
   }
 
   showCategory() {
-    //console.log(this);
+    // console.log(this);
     const header = document.createElement('h4');
     if (this.name) header.innerText = this.name;
     const words = document.createElement('div');

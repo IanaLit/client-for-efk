@@ -1,12 +1,14 @@
-import { WordService } from "../../services/wordsService";
-import { adminHeader } from "../adminHeader/header";
-import { CategoryCard } from "../categoriesPage/categoryCard";
-import { WordCard } from "./wordCard";
+/* eslint import/no-cycle: [1, { maxDepth: 2 }] */
+import { WordService } from '../../services/wordsService';
+import { AdminHeader } from '../adminHeader/header';
+import { CategoryCard } from '../categoriesPage/categoryCard';
+import { WordCard } from './wordCard';
 
-export class WordsPage{
-    element: HTMLElement;
+export class WordsPage {
+  element: HTMLElement;
 
   addCard:HTMLElement;
+
   category: HTMLHeadingElement;
 
   constructor(category:CategoryCard) {
@@ -24,12 +26,12 @@ export class WordsPage{
 
   render = async () => {
     document.body.innerText = '';
-    const header = new adminHeader(this.element);
+    const header = new AdminHeader(this.element);
     document.body.appendChild(header.element);
     document.body.appendChild(this.category);
     header.setActive();
     document.body.appendChild(this.element);
-    this.createWordCard()
+    this.createWordCard();
   };
 
   createWordCard() {

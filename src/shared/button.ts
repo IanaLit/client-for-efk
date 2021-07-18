@@ -1,4 +1,5 @@
 import './button.scss';
+
 export class Button {
   element: HTMLAnchorElement;
 

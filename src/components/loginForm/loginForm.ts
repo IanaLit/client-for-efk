@@ -34,8 +34,10 @@ export class LoginForm {
     this.element.append(this.buttons);
     this.login = new Input(this.inputs, 'text');
     this.login.element.placeholder = 'enter "admin" for login';
+    this.login.element.name = 'login';
     this.password = new Input(this.inputs, 'password');
     this.password.element.placeholder = 'enter "admin" for password';
+    this.password.element.name = 'password';
     this.cancelButton = new Button('red', 'Cancel');
     this.loginButton = new Button('green', 'Login');
     this.buttons.append(this.loginButton.element);
@@ -44,19 +46,17 @@ export class LoginForm {
     this.cancelButton.btnClick = () => {
       this.show();
     };
-    this.loginButton.btnClick = async() => {
-      
-      //if(this.login.element.value && this.password.element.value){}
-        
-      
-      if(!this.password.element.value){
-        alert('Enter "admin" for password' );
+    this.loginButton.btnClick = async () => {
+      // if(this.login.element.value && this.password.element.value){}
+
+      if (!this.password.element.value) {
+        alert('Enter "admin" for password');
       }
-      if(!this.login.element.value){
-        alert('Enter "admin" for login' );
+      if (!this.login.element.value) {
+        alert('Enter "admin" for login');
       }
-      const result = await AuthService.login({login: this.login.element.value, password: this.password.element.value});
-      if(result === 'ok') {
+      const result = await AuthService.login({ login: this.login.element.value, password: this.password.element.value });
+      if (result === 'ok') {
         sessionStorage.setItem('login', 'true');
         this.adminPage.render();
       }

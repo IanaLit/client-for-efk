@@ -1,8 +1,8 @@
+/* eslint-disable */
 import { CategoryService } from '../../services/categoryService';
 import { CategoryCard } from './categoryCard';
 import './category.scss';
-import { adminHeader } from '../adminHeader/header';
-
+import { AdminHeader } from '../adminHeader/header';
 
 export class CategoriesPage {
   element: HTMLElement;
@@ -17,18 +17,18 @@ export class CategoriesPage {
     this.addCard.onclick = () => {
       this.newCategoryCard();
     };
-    let self = this;
-    this.element.onscroll = ()=> {
-      if(self){
+    const self = this;
+    this.element.onscroll = () => {
+      if (self) {
         const { scrollTop, clientHeight, scrollHeight } = self.element;
-      if(scrollTop + clientHeight >= scrollHeight) {
-        self.loadMore();
-  }
-      }      
-    }
+        if (scrollTop + clientHeight >= scrollHeight) {
+          self.loadMore();
+        }
+      }
+    };
   }
 
-  loadMore = async()=>{
+  loadMore = async () => {
     console.log('load');
     const categories = await CategoryService.getCategories();
     document.body.appendChild(this.element);
@@ -37,11 +37,12 @@ export class CategoriesPage {
       this.element.appendChild(categoryCard.element);
       categoryCard.showCategory();
     });
-    CategoryService.scip = CategoryService.scip + CategoryService.limit;
-  }
+    CategoryService.scip += CategoryService.limit;
+  };
+
   render = async () => {
     document.body.innerText = '';
-    const header = new adminHeader(this.element);
+    const header = new AdminHeader(this.element);
     document.body.appendChild(header.element);
     header.setActive();
     this.loadMore();
