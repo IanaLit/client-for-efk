@@ -5,6 +5,7 @@ import { Input } from '../../../shared/input';
 import './wordsPage.scss';
 import '../../../shared/button.scss';
 import { WordService } from '../../services/wordsService';
+import { CloudService } from '../../services/cloudService';
 
 let newWord;
 export class WordCard {
@@ -78,11 +79,14 @@ export class WordCard {
       };
     }
     this.buttonCreate.btnClick = async () => {
+      const newImageUrl = await CloudService.uploadImage();
+      const newAudioUrl = await CloudService.uploadAudio();
+      console.log(newImageUrl);
       WordService.newWord = {
         word: this.inputWord ? this.inputWord.element.value : '',
         translation: this.inputTranslation ? this.inputTranslation.element.value : '',
-        audioSrc: this.inputAudio ? this.inputAudio.element.value : '',
-        image: this.inputImage ? this.inputImage.element.value : '',
+        audioSrc: newAudioUrl,
+        image: newImageUrl,
         owner: WordService.categoryId,
       };
       console.log(WordService.newWord);
@@ -92,27 +96,43 @@ export class WordCard {
   }
 
   newWord() {
+    const form = document.createElement('form');
+    form.className = 'word-form';
+    form.enctype = "multipart/form-data";
+
     this.inputWord = new Input(this.element, 'text');
     if (this.word) this.inputWord.element.value = this.word;
     this.inputWord.element.className = 'input-word';
     this.inputWord.element.placeholder = 'word';
-    this.element.appendChild(this.inputWord.element);
+    this.inputWord.element.name = 'word';
+    //this.element.appendChild(this.inputWord.element);
+    form.appendChild(this.inputWord.element);
 
     this.inputTranslation = new Input(this.element, 'text');
     if (this.translation) this.inputTranslation.element.value = this.translation;
-    this.inputTranslation.element.className = 'input-image';
+    this.inputTranslation.element.className = 'input-translation';
     this.inputTranslation.element.placeholder = 'translation';
-    this.element.appendChild(this.inputTranslation.element);
+    this.inputTranslation.element.name =  'translation';
+    //this.element.appendChild(this.inputTranslation.element);
+    form.appendChild(this.inputTranslation.element);
 
     this.inputImage = new Input(this.element, 'file');
     if (this.image) this.inputImage.element.value = this.image;
     this.inputImage.element.className = 'input-image';
-    this.element.appendChild(this.inputImage.element);
+    this.inputImage.element.name = 'image';
+    CloudService.image = this.inputImage;
+    //this.element.appendChild(this.inputImage.element);
+    form.appendChild(this.inputImage.element);
 
     this.inputAudio = new Input(this.element, 'file');
     if (this.audioSrc) this.inputAudio.element.value = this.audioSrc;
     this.inputAudio.element.className = 'input-audio';
-    this.element.appendChild(this.inputAudio.element);
+    this.inputAudio.element.name = 'audio';
+    CloudService.audio = this.inputAudio;
+    //this.element.appendChild(this.inputAudio.element);
+    form.appendChild(this.inputAudio.element);
+    this.element.appendChild(form);
+
     this.element.appendChild(this.buttonCreate.element);
   }
 }

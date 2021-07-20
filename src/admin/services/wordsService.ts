@@ -33,6 +33,7 @@ export class WordService {
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        //headers: {'Content-Type': 'multipart/form-data' },
         body: JSON.stringify(WordService.newWord),
       });
       // eslint-disable-next-line no-param-reassign, no-underscore-dangle
