@@ -62,12 +62,6 @@ export class StateService {
     StateService.header.classList.toggle(`${StateService.gameMode}`);
     if (StateService.cardsSet) GameService.renderPlayButton();
     if (StateService.gameMode === 'train') StateService.raiting.clear();
-    // StateService.setSettings();
-    // if(StateService.playButton.element.classList.contains('hidden')){
-    //   StateService.playButton.showButton();
-    // } else {
-    //   StateService.playButton.removeButton();
-    // }
   };
 
   static compare = (card:CardInterface, element:HTMLDivElement, cardObject:GameCard) => {

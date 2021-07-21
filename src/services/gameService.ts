@@ -1,4 +1,6 @@
 /* eslint import/no-cycle: [1, { maxDepth: 2 }] */
+import { CategoryService } from '../admin/services/categoryService';
+import { WordService } from '../admin/services/wordsService';
 import { cards, data } from '../cards';
 import { GameCard } from '../components/gameCard/gameCard';
 import { MenuItem } from '../components/header/menu/menuItem';
@@ -54,16 +56,27 @@ export class GameService {
     }
   }
 
-  static renderCategories() {
-    // StateService.clear();
-    const categories = cards;
-    const cardUrls: string[] = [];
-    data.map((set) => cardUrls.push(set[0].image));
-    categories.forEach((cat, index) => {
-      const card = new IndexCard(cardUrls[index], cat);
+  // static renderCategories() {
+  //   // StateService.clear();
+  //   const categories = cards;
+  //   const cardUrls: string[] = [];
+  //   data.map((set) => cardUrls.push(set[0].image));
+  //   categories.forEach((cat, index) => {
+  //     const card = new IndexCard(cardUrls[index], cat);
+  //     StateService.main.appendChild(card.card);
+  //   });
+  // }
+  static async renderCategories(){
+    const categories = await CategoryService.getCategories();
+    console.log(categories);
+    categories.forEach(async (category:{_id:string, name:string, words:[]}) => {
+      WordService.categoryId= category._id;
+      const card = new IndexCard('./image.jpg', category.name);
       StateService.main.appendChild(card.card);
     });
+
   }
+
 
   static renderStatistic() {
     // const statistic = new Statistic();

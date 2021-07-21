@@ -1,3 +1,4 @@
+/* eslint-disable */ 
 /* eslint import/no-cycle: [1, { maxDepth: 2 }] */
 import { WordService } from '../../services/wordsService';
 import { AdminHeader } from '../adminHeader/header';
@@ -27,13 +28,11 @@ export class WordsPage {
       if (self) {
         const { scrollTop, clientHeight, scrollHeight } = self.element;
         if (scrollTop + clientHeight >= scrollHeight) {
-         WordService.loadMore();
+          WordService.loadMore();
         }
       }
     };
   }
-
-  
 
   render = async () => {
     document.body.innerText = '';

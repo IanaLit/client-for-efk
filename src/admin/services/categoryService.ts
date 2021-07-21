@@ -3,9 +3,9 @@ export class CategoryService {
 
   static limit = 3;
 
-  // static uri = 'https://shrouded-cove-24927.herokuapp.com';
+  static uri = 'https://shrouded-cove-24927.herokuapp.com';
 
-  static uri = 'http://localhost:3000';
+  // static uri = 'http://localhost:3000';
   static getCategories = async () => {
     const response = await fetch(`${CategoryService.uri}/admin/categories?scip=${CategoryService.scip}&limit=${CategoryService.limit}`,
       {
