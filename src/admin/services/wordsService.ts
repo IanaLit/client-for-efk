@@ -5,6 +5,9 @@ import { WordsPage } from '../components/wordsPage/wordsPage';
 import { CategoryService } from './categoryService';
 
 export class WordService {
+  static skip = 0;
+
+  static limit = 3;
   static newWord = {
     _id:'',
     word: '',
@@ -24,21 +27,40 @@ export class WordService {
 
   static wordsPage:WordsPage;
 
-  static renderWords = async()=> {
-    console.log(WordService.category);
+  // static renderWords = async()=> {
+  //   console.log(WordService.category);
+  //   WordService.wordsPage = new WordsPage(WordService.category);
+  //   WordService.wordsPage.render();
+  //   const words = await WordService.getCategoryWords();
+  //   words.forEach((word: { word: string | undefined; translation: string | undefined; owner: string | undefined; _id: string | undefined; image: string | undefined; audioSrc: string | undefined; }) => {
+  //     const wordCard = new WordCard(word.word, word.translation, word.owner, word._id, word.image, word.audioSrc);
+  //     wordCard.showWord();
+  //     WordService.wordsPage.element.appendChild(wordCard.element);
+  //   });
+  // }
+
+  static renderWords(){
     WordService.wordsPage = new WordsPage(WordService.category);
     WordService.wordsPage.render();
-    const words = await WordService.getCategoryWords();
+    //WordService.loadMore();
+  }
+  static loadMore = async () => {
+    console.log('load');
+    document.body.appendChild(WordService.wordsPage.element);
+    const words = await  WordService.getCategoryWords();
+    console.log(words);
     words.forEach((word: { word: string | undefined; translation: string | undefined; owner: string | undefined; _id: string | undefined; image: string | undefined; audioSrc: string | undefined; }) => {
       const wordCard = new WordCard(word.word, word.translation, word.owner, word._id, word.image, word.audioSrc);
+      console.log(wordCard);
       wordCard.showWord();
       WordService.wordsPage.element.appendChild(wordCard.element);
     });
-  }
+    WordService.skip += WordService.limit;
+  };
 
   static getCategoryWords = async () => {
     console.log('getWords', WordService.category.id);
-    const response = await fetch(`${CategoryService.uri}/admin/categories/words/${WordService.category.id}`);
+    const response = await fetch(`${CategoryService.uri}/admin/categories/words/${WordService.category.id}?skip=${WordService.skip}&limit=${WordService.limit}`);
     return response.json();
   }
 

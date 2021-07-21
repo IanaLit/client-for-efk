@@ -53,6 +53,7 @@ export class CategoryCard {
       WordService.category = this;
       if (this.name) WordService.categoryName = this.name;
       if (this.id) WordService.categoryId = this.id;
+      //WordService.loadMore();
       WordService.renderWords();
     };
     this.buttonDelete.btnClick = async () => {

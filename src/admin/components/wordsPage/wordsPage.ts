@@ -22,7 +22,18 @@ export class WordsPage {
     this.addCard.onclick = () => {
       this.newWordCard();
     };
+    const self = this;
+    this.element.onscroll = () => {
+      if (self) {
+        const { scrollTop, clientHeight, scrollHeight } = self.element;
+        if (scrollTop + clientHeight >= scrollHeight) {
+         WordService.loadMore();
+        }
+      }
+    };
   }
+
+  
 
   render = async () => {
     document.body.innerText = '';
@@ -31,6 +42,7 @@ export class WordsPage {
     document.body.appendChild(this.category);
     header.setActive();
     document.body.appendChild(this.element);
+    WordService.loadMore();
     this.createWordCard();
   };
 
