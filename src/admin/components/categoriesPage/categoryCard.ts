@@ -49,7 +49,7 @@ export class CategoryCard {
     this.buttonCancel = new Button('red', 'cancel');
 
     this.buttonAddWord.btnClick = async () => {
-      console.log(this);
+      //console.log(this);
       WordService.category = this;
       if (this.name) WordService.categoryName = this.name;
       if (this.id) WordService.categoryId = this.id;

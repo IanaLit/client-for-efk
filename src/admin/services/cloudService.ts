@@ -19,7 +19,7 @@ export class CloudService{
             })).json();
             const signature = await cloudData.then(data => data.signature);
             const timestamp = await cloudData.then(data => data.timestamp);
-            console.log(signature, timestamp);
+            //console.log(signature, timestamp);
             const form = new FormData();
         
             form.append('file', CloudService.audio.element.files[0]);
