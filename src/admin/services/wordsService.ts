@@ -8,7 +8,7 @@ import { CategoryService } from './categoryService';
 export class WordService {
   static skip = 0;
 
-  static limit = 3;
+  static limit = 6;
 
   static newWord = {
     _id: '',

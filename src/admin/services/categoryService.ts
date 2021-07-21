@@ -1,7 +1,7 @@
 export class CategoryService {
   static scip = 0;
 
-  static limit = 3;
+  static limit = 6;
 
   static uri = 'https://shrouded-cove-24927.herokuapp.com';
 
