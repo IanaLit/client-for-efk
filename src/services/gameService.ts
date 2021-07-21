@@ -15,24 +15,19 @@ import { StateService } from './stateService';
 export class GameService {
   static playButton: HTMLButtonElement;
 
-  static currentSet: CardInterface[] = [];
+  static currentSet: any[];
 
   static menuItems: MenuItem[] = [];
 
   static statistic = new Statistic();
-
-  // static makePath = (categoryName: string) => categoryName.replace('(', '').replace(')', '').toLowerCase().split(' ')
-  //   .join('-');
-
-  // static removeCards =()=>{
-  //   while (StateService.main.firstChild) {
-  //     if(StateService.main.lastChild)StateService.main.removeChild(StateService.main.lastChild);
-  //   }
-  // }
-  static getData = (categoryName:string) => {
-    const categoryIndex = cards.findIndex((card) => card === categoryName);
-    GameService.currentSet = [];
-    GameService.currentSet = GameService.currentSet.concat(data[categoryIndex]);
+  static getData = async (categoryName:string) => {
+    GameService.currentSet = await WordService.getCategoryWords();
+    console.log(GameService.currentSet);
+    // const a = await WordService.getCategoryWords();
+    // console.log(a);
+    // const categoryIndex = cards.findIndex((card) => card === categoryName);
+    // GameService.currentSet = [];
+    // GameService.currentSet = GameService.currentSet.concat(data[categoryIndex]);
     // console.log(data);
     return GameService.currentSet;
   };
@@ -71,7 +66,7 @@ export class GameService {
     console.log(categories);
     categories.forEach(async (category:{_id:string, name:string, words:[]}) => {
       WordService.categoryId= category._id;
-      const card = new IndexCard('./image.jpg', category.name);
+      const card = new IndexCard(category, './image.jpg');
       StateService.main.appendChild(card.card);
     });
 
@@ -85,7 +80,7 @@ export class GameService {
     GameService.statistic.renderTable('word');
   }
 
-  static changeCategory = (categoryName:string) => {
+  static changeCategory = async (categoryName:string, category:{_id:string, name:string, words:[]}|null) => {
     StateService.clear();
     const menuItem = GameService.menuItems.find((item) => item.categoryName === categoryName);
     GameService.statistic.clean();
@@ -94,7 +89,9 @@ export class GameService {
     else {
       StateService.clear();
       StateService.setCategory(categoryName);
-      StateService.cardsSet = GameService.getData(categoryName);
+      if(category) WordService.categoryId = category._id;
+      StateService.cardsSet = await GameService.getData(categoryName);
+      
       GameService.renderCards();
       GameService.renderPlayButton();
     }

@@ -16,6 +16,8 @@ export class StateService {
 
   static cardsSet:CardInterface[];
 
+  static wordsSet:[];
+
   static gameMode = 'train';
 
   static points = 0;

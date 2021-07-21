@@ -13,7 +13,7 @@ export class MenuItem {
     this.element.innerHTML = this.categoryName;
     GameService.menuItems.push(this);
     this.element.onclick = () => {
-      GameService.changeCategory(categoryName);
+      GameService.changeCategory(categoryName, null);
     };
   }
 }
