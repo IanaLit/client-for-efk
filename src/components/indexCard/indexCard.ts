@@ -1,3 +1,4 @@
+/* eslint-disable */ 
 /* eslint import/no-cycle: [1, { maxDepth: 2 }] */
 import { WordService } from '../../admin/services/wordsService';
 import { CategoryModel } from '../../models/categoryModel';
@@ -15,9 +16,10 @@ export class IndexCard {
   cardText:string;
 
   categoryModel;
+
   categoryId: string;
 
-  constructor(category:{_id:string, name:string, words:[]}, src: string,) {
+  constructor(category:{ _id:string, name:string, words:[] }, src: string) {
     this.categoryId = category._id;
     this.card = document.createElement('div');
     this.card.className = 'index-card';
@@ -32,7 +34,7 @@ export class IndexCard {
     this.categoryModel = new CategoryModel(category.name);
     this.card.onclick = () => {
       GameService.changeCategory(category.name, category);
-      //WordService.categoryId = category._id;
+      // WordService.categoryId = category._id;
     };
   }
 }

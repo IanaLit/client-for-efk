@@ -23,4 +23,5 @@ document.body.appendChild(loginForm.element);
 const footer = new Footer();
 document.body.insertAdjacentElement('afterend', footer.element);
 footer.setLinks();
+
 // main.renderCategories();

@@ -1,3 +1,4 @@
+/* eslint-disable */ 
 import { Button } from '../../../shared/button';
 import './header.scss';
 
@@ -28,6 +29,11 @@ export class AdminHeader {
     navigation.appendChild(this.words);
     this.logout = new Button('logout', 'logout');
     this.element.appendChild(this.logout.element);
+    this.logout.btnClick = () => {
+      sessionStorage.clear();
+      document.body.innerText = '';
+      location.href = '/index.html';
+    };
   }
 
   setActive() {

@@ -1,3 +1,4 @@
+/* eslint-disable */ 
 /* eslint import/no-cycle: [1, { maxDepth: 2 }] */
 import { CategoryService } from '../admin/services/categoryService';
 import { WordService } from '../admin/services/wordsService';
@@ -20,6 +21,7 @@ export class GameService {
   static menuItems: MenuItem[] = [];
 
   static statistic = new Statistic();
+
   static getData = async (categoryName:string) => {
     GameService.currentSet = await WordService.getCategoryWords();
     console.log(GameService.currentSet);
@@ -61,17 +63,15 @@ export class GameService {
   //     StateService.main.appendChild(card.card);
   //   });
   // }
-  static async renderCategories(){
+  static async renderCategories() {
     const categories = await CategoryService.getCategories();
     console.log(categories);
-    categories.forEach(async (category:{_id:string, name:string, words:[]}) => {
-      WordService.categoryId= category._id;
+    categories.forEach(async (category:{ _id:string, name:string, words:[] }) => {
+      WordService.categoryId = category._id;
       const card = new IndexCard(category, './image.jpg');
       StateService.main.appendChild(card.card);
     });
-
   }
-
 
   static renderStatistic() {
     // const statistic = new Statistic();
@@ -80,7 +80,7 @@ export class GameService {
     GameService.statistic.renderTable('word');
   }
 
-  static changeCategory = async (categoryName:string, category:{_id:string, name:string, words:[]}|null) => {
+  static changeCategory = async (categoryName:string, category:{ _id:string, name:string, words:[] }|null) => {
     StateService.clear();
     const menuItem = GameService.menuItems.find((item) => item.categoryName === categoryName);
     GameService.statistic.clean();
@@ -89,9 +89,9 @@ export class GameService {
     else {
       StateService.clear();
       StateService.setCategory(categoryName);
-      if(category) WordService.categoryId = category._id;
+      if (category) WordService.categoryId = category._id;
       StateService.cardsSet = await GameService.getData(categoryName);
-      
+
       GameService.renderCards();
       GameService.renderPlayButton();
     }
